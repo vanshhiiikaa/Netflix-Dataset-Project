@@ -1,56 +1,60 @@
-csv_data = """cast,country,date_added,rating,duration
-"Robert Downey Jr., Chris Evans","United States","September 9, 2021","PG-13","143 min"
-"Shah Rukh Khan, Kajol","India","January 15, 2020","TV-14","2 Seasons"
-"Emma Watson, Daniel Radcliffe","United Kingdom","March 21, 2019","PG","152 min"
-"Tom Hanks, Meg Ryan","United States","July 11, 2018","PG","119 min"
-"Leonardo DiCaprio, Kate Winslet","United States","August 5, 2021","R","194 min"
-"Ryan Reynolds, Sandra Bullock","Canada","June 8, 2022","PG-13","108 min"
-"Chris Hemsworth, Natalie Portman","Australia","April 17, 2020","PG-13","130 min"
-"Aamir Khan, Kareena Kapoor","India","December 25, 2019","PG","165 min"
-"Will Smith, Margot Robbie","United States","February 2, 2023","PG-13","124 min"
-"Keanu Reeves, Carrie-Anne Moss","Canada","October 12, 2021","R","136 min"
-"Jennifer Lawrence, Josh Hutcherson","United States","May 6, 2019","PG-13","142 min"
-"Ranbir Kapoor, Alia Bhatt","India","September 18, 2022","TV-14","1 Season"
-"Dwayne Johnson, Kevin Hart","United States","November 30, 2020","PG-13","115 min"
-"Chris Pratt, Zoe Saldana","United States","March 3, 2023","PG-13","122 min"
-"Salman Khan, Katrina Kaif","India","July 19, 2021","TV-MA","3 Seasons"
-"Tom Holland, Zendaya","United States","April 9, 2022","PG-13","148 min"
-"Hugh Jackman, Anne Hathaway","Australia","January 28, 2020","PG","158 min"
-"Akshay Kumar, Vidya Balan","India","June 14, 2018","TV-PG","108 min"
-"Brad Pitt, Angelina Jolie","United States","August 22, 2022","R","118 min"
-"Benedict Cumberbatch, Rachel McAdams","United Kingdom","May 10, 2021","PG-13","126 min"
-"Dev Patel, Freida Pinto","India","October 8, 2019","R","120 min"
-"Gal Gadot, Chris Pine","Israel","December 1, 2020","PG-13","141 min"
-"Johnny Depp, Orlando Bloom","United States","February 17, 2021","PG-13","150 min"
-"Matt Damon, Jessica Chastain","United States","April 25, 2023","PG-13","144 min"
-"Priyanka Chopra, Farhan Akhtar","India","September 12, 2021","TV-14","2 Seasons"
-"Henry Cavill, Millie Bobby Brown","United Kingdom","January 4, 2022","TV-MA","4 Seasons"
-"Scarlett Johansson, Florence Pugh","United States","July 7, 2021","PG-13","133 min"
-"Robert Pattinson, Zoe Kravitz","United States","March 18, 2022","PG-13","176 min"
-"Madhuri Dixit, Anil Kapoor","India","November 16, 2018","PG","154 min"
-"Jason Momoa, Amber Heard","United States","June 29, 2023","PG-13","143 min"
-"Ben Affleck, Henry Cavill","United States","May 21, 2019","PG-13","151 min"
-"Ranveer Singh, Deepika Padukone","India","August 9, 2020","TV-14","1 Season"
-"Christian Bale, Michael Caine","United Kingdom","February 14, 2021","PG-13","140 min"
-"Emily Blunt, John Krasinski","United States","October 27, 2022","PG-13","99 min"
-"Mahesh Babu, Rashmika Mandanna","India","July 5, 2023","TV-PG","2 Seasons"
-"Idris Elba, Viola Davis","United Kingdom","December 19, 2021","R","127 min"
-"Morgan Freeman, Tim Robbins","United States","April 1, 2018","R","142 min"
-"Rajkummar Rao, Bhumi Pednekar","India","March 13, 2020","TV-MA","95 min"
-"Chris Evans, Ana de Armas","United States","September 15, 2022","PG-13","116 min"
-"Samuel L. Jackson, Brie Larson","United States","January 20, 2023","PG-13","124 min"
-"Hrithik Roshan, Tiger Shroff","India","June 11, 2019","PG-13","154 min"
-"Daniel Craig, Lea Seydoux","United Kingdom","November 7, 2021","PG-13","163 min"
-"Tom Cruise, Jennifer Connelly","United States","May 27, 2022","PG-13","131 min"
-"Ajay Devgn, Tabu","India","February 18, 2021","TV-14","145 min"
-"Pedro Pascal, Bella Ramsey","United States","January 15, 2023","TV-MA","1 Season"
-"Millie Bobby Brown, Henry Cavill","United Kingdom","September 23, 2020","PG-13","123 min"
-"Jackie Chan, Jet Li","China","April 30, 2019","PG-13","113 min"
-"Song Kang-ho, Choi Woo-shik","South Korea","December 12, 2021","R","132 min"
-"Rami Malek, Lucy Boynton","United Kingdom","July 8, 2020","PG-13","134 min"
-"Suriya, Jyothika","India","October 10, 2022","TV-PG","2 Seasons"""
 
-with open("netflix_subset.csv", "w", encoding="utf-8") as file:
-    file.write(csv_data)
+"""Validate the Netflix dataset without overwriting the original CSV."""
 
-print("CSV file saved successfully!")
+from pathlib import Path
+import pandas as pd
+
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "netflix_subset.csv"
+
+REQUIRED_COLUMNS = {
+    "type",
+    "rating",
+    "duration",
+}
+
+
+def main():
+    if not DATA_FILE.exists():
+        print(f"ERROR: Dataset not found: {DATA_FILE.name}")
+        print("Upload netflix_subset.csv to the repository root.")
+        return
+
+    try:
+        data = pd.read_csv(DATA_FILE)
+    except (OSError, pd.errors.ParserError, UnicodeDecodeError) as error:
+        print(f"ERROR: Could not read the CSV: {error}")
+        return
+
+    data.columns = data.columns.str.strip().str.lower()
+
+    print("=" * 45)
+    print("       NETFLIX DATASET VALIDATOR")
+    print("=" * 45)
+
+    print(f"\nFile: {DATA_FILE.name}")
+    print(f"Rows: {len(data)}")
+    print(f"Columns: {len(data.columns)}")
+    print(f"\nColumn names: {', '.join(data.columns)}")
+
+    missing_columns = REQUIRED_COLUMNS - set(data.columns)
+
+    if missing_columns:
+        print(f"\nERROR: Missing columns: {sorted(missing_columns)}")
+        print("Please check the CSV header.")
+        return
+
+    print("\nContent type counts:")
+    print(data["type"].fillna("Unknown").value_counts().to_string())
+
+    print("\nMissing values by column:")
+    print(data.isna().sum().to_string())
+
+    print(f"\nDuplicate rows: {data.duplicated().sum()}")
+
+    print("\nDataset validation completed.")
+    print("Original CSV was not modified.")
+
+
+if __name__ == "__main__":
+    main()

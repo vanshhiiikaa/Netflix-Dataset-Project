@@ -13,17 +13,6 @@ This project analyzes a Netflix titles dataset to uncover patterns in the platfo
 - **Ratings Distribution** — pie chart showing the breakdown of content ratings (e.g., TV-MA, PG-13, R)
 - **Movie Duration Analysis** — histogram of movie runtimes, with duration values cleaned and converted from text to numeric minutes
 
-## 📸 Screenshots
-
-<!-- Add your chart outputs here -->
-| Analysis | Preview |
-|---|---|
-| Content Type Distribution (Bar Chart) | ![Content type bar chart](screenshots/content_type.png) |
-| Ratings Distribution (Pie Chart) | ![Ratings pie chart](screenshots/ratings.png) |
-| Movie Duration Distribution (Histogram) | ![Movie duration histogram](screenshots/duration.png) |
-
-> To add these: run `netflix.py`, screenshot each chart window as it appears, create a `screenshots/` folder in this repo, upload the images, and match the filenames above.
-
 ## Dataset
 
 `netflix_subset.csv` — a subset of Netflix titles data including columns like `type`, `cast`, `country`, `date_added`, `rating`, and `duration`.

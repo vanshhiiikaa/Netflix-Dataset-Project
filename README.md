@@ -1,68 +1,101 @@
+
 # Netflix Dataset Analysis 🎬
 
-A Python data analysis project exploring Netflix content data using **Pandas** and **Matplotlib** — covering data cleaning, and visualizing content type distribution, ratings, and movie durations.
+A Python data analysis project that explores Netflix movies and TV shows using Pandas and Matplotlib.
 
-## 📌 About The Project
+## Project Overview
 
-This project analyzes a Netflix titles dataset to uncover patterns in the platform's content: what proportion is Movies vs. TV Shows, how content ratings are distributed, and how long Netflix movies typically run.
+This project analyzes Netflix title data to understand content types, ratings, movie durations, country distribution, and content additions over time.
 
-## ✨ Features
+## Features
 
-- **Data Cleaning** — removes rows with missing values in key columns (cast, country, date added, rating, duration) using Pandas
-- **Content Type Distribution** — bar chart comparing Movies vs. TV Shows
-- **Ratings Distribution** — pie chart showing the breakdown of content ratings (e.g., TV-MA, PG-13, R)
-- **Movie Duration Analysis** — histogram of movie runtimes, with duration values cleaned and converted from text to numeric minutes
+- Data validation and cleaning
+- Movies vs. TV Shows distribution
+- Ratings distribution
+- Movie duration statistics
+- Top countries by title count
+- Titles added by year
+- Export of cleaned data and charts
 
-## Dataset
+## Project Structure
 
-`netflix_subset.csv` — a subset of Netflix titles data including columns like `type`, `cast`, `country`, `date_added`, `rating`, and `duration`.
-
-## How It Works
-
-1. Loads the dataset using `pandas.read_csv()`
-2. Drops rows with missing values in critical columns to ensure clean analysis
-3. Uses `value_counts()` to summarize content types and ratings
-4. Plots:
-   - A **bar chart** of content type counts
-   - A **pie chart** of rating distribution with percentage labels
-   - A **histogram** of movie durations (after cleaning the "min" text suffix and converting to integers)
-
-## Getting Started
-
-### Prerequisites
-- Python 3.x
-- Pandas (`pip install pandas`)
-- Matplotlib (`pip install matplotlib`)
-
-### Installation
-```bash
-git clone https://github.com/vanshhiiikaa/Netflix-Dataset-Project.git
-cd Netflix-Dataset-Project
+```text
+Netflix-Dataset-Project/
+├── netflix.py
+├── netflix_titles.py
+├── netflix_subset.csv
+├── requirements.txt
+├── README.md
+└── output/
 ```
 
-### Usage
+The `output/` folder is created automatically when the analysis runs.
+
+## Requirements
+
+- Python 3.9 or later
+- Pandas
+- Matplotlib
+
+## Installation
+
+Install the required packages:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+## How to Run
+
+Run the dataset validator:
+
+```bash
+python netflix_titles.py
+```
+
+Run the analysis:
+
 ```bash
 python netflix.py
 ```
-This will display three charts in sequence: content type distribution, ratings distribution, and movie duration distribution.
 
-## Tech Stack
-- Python 3
-- Pandas (data loading and cleaning)
-- Matplotlib (data visualization)
+## Output
 
-## Possible Improvements
-- [ ] Add analysis of content added over time (trend by year/month using `date_added`)
-- [ ] Break down ratings by content type (Movies vs. TV Shows separately)
-- [ ] Add country-wise content distribution analysis
-- [ ] Save generated charts as image files automatically
-- [ ] Turn into a Jupyter Notebook with markdown explanations alongside each chart
-- [ ] Add basic statistical summary (mean/median movie duration, etc.)
+The analysis generates:
+
+- `content_types.png`
+- `ratings_distribution.png`
+- `movie_durations.png`
+- `top_countries.png` (if country data is available)
+- `titles_added_by_year.png` (if date data is available)
+- `netflix_cleaned.csv`
+- `summary.csv`
+
+All generated files are saved in the `output/` directory.
+
+## Dataset
+
+The project uses `netflix_subset.csv`.
+
+The analysis expects the dataset to contain `type`, `rating`, and `duration` columns. Country and date-added analysis are optional.
+
+## Technologies Used
+
+- Python
+- Pandas
+- Matplotlib
+- CSV
+
+## Notes
+
+The validator does not overwrite the original dataset. The analysis removes duplicate rows from its working copy and handles missing values in key analysis columns.
+
+Generated charts and cleaned data are created when the Python script runs; editing files on GitHub alone does not execute the scripts.
 
 ## Author
-**Vanshika**
-- GitHub: [@vanshhiiikaa](https://github.com/vanshhiiikaa)
-- LinkedIn: [Vanshika Gupta](https://www.linkedin.com/in/vanshika-gupta-4a2002329)
+
+Vanshika
 
 ## License
-This project is open source and available under the [MIT License](LICENSE).
+
+See the repository license for licensing information.
